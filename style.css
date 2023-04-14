@@ -3,26 +3,41 @@ body {
 }
 
 .header {
+  z-index: 1;
+  background-color: white;
   display: flex;
-  margin: 16px 22px 60px 22px;
+  height: 80px;
   align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
   justify-content: space-between;
+}
+
+.logo {
+  padding-left: 20px;
 }
 
 .header-ionicon {
   font-size: 40px;
+  padding-right: 20px;
 }
 
 .content {
   margin-bottom: 80px;
+  width: 100%;
+  margin-top: 40px;
 }
 
 .chat {
-  height: 40px;
+  padding: 20px 0;
   display: flex;
+  width: 100%;
   align-items: center;
   gap: 4px;
   font-size: 14px;
+  word-wrap: break-word;
+  margin-bottom: 5px;
 }
 
 strong {
@@ -40,6 +55,7 @@ strong {
   width: 100%;
   position: fixed;
   bottom: 0;
+  left: 0;
   height: 80px;
   display: flex;
   align-items: center;
@@ -54,7 +70,6 @@ strong {
 }
 
 button {
-  margin-right: 20px;
   border: none;
 }
 
@@ -63,6 +78,7 @@ button:hover {
 }
 button ion-icon {
   font-size: 26px;
+  padding-right: 20px;
 }
 
 input:focus {
@@ -79,4 +95,12 @@ input:focus {
 
 .message {
   background-color: #ffffff;
+}
+
+p {
+  width: 100%;
+}
+
+span {
+  width: 100%;
 }

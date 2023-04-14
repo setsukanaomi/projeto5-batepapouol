@@ -22,10 +22,12 @@ function showMessages(message) {
   }
 
   chat.innerHTML += `<div data-test="message" class="${chatClasses}">
-    <div class="time">(${message.time})</div>
-    <div class="name"><strong>${message.from}</strong></div>
-    <div class="${toClasses}">para <strong>${message.to}:</strong></div>
-    <div class="message">${message.text}</div>
+    <p>
+    <span class="time">(${message.time})</span>
+    <span class="name"><strong>${message.from}</strong></span>
+    <span class="${toClasses}">para <strong>${message.to}:</strong></span>
+    <span class="msg">${message.text}</span>
+    </p>
   </div>`;
   scrollToBottom(chat);
 }
@@ -117,4 +119,15 @@ function getMessage() {
 }
 //----------------------------
 
+// Função que envia com enter
+function setupInput() {
+  const input = document.querySelector(".send-box input");
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  });
+}
+
 promptUsername();
+setupInput();
