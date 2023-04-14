@@ -89,8 +89,9 @@ function promptUsername() {
   }
   function showError(error) {
     if (error.response.status === 400) {
-      promptUsername();
+      window.location.reload();
     }
+    window.location.reload();
   }
 }
 //-----------------------------
