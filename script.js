@@ -101,19 +101,34 @@ function setupInput() {
 }
 
 // Função que envia o username
-function sendUsername() {
+function sendUsername(participants) {
   const inputLogin = document.querySelector(".login input");
   const user = inputLogin.value;
   window.username = {
     name: user,
   };
-  console.log(window.username);
-  const promise = axios.post(
-    "https://mock-api.driven.com.br/api/vm/uol/participants",
-    window.username
+  const promiseGetParticipants = axios.get(
+    "https://mock-api.driven.com.br/api/vm/uol/participants"
   );
-  promise.then(processAnswer);
-  promise.catch(showError);
+
+  promiseGetParticipants.then(function (response) {
+    const participants = response.data;
+    // Verifica se o nome de usuário já está em uso
+    if (participants.find((p) => p.name === window.username.name)) {
+      alert(
+        "Este nome de usuário já está em uso. Por favor, escolha outro nome."
+      );
+      return;
+    }
+
+    // Envie a solicitação POST para adicionar o usuário
+    const promise = axios.post(
+      "https://mock-api.driven.com.br/api/vm/uol/participants",
+      window.username
+    );
+    promise.then(processAnswer);
+    promise.catch(showError);
+  });
 
   function processAnswer(answer) {
     if (answer.status === 200) {
