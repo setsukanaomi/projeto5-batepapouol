@@ -65,9 +65,13 @@ function sendMessage() {
     }
   }
   function updateUsername(usernameAgain) {
-    if (usernameAgain.response.status === 400) {
+    if (
+      usernameAgain.response.status === 400 ||
+      usernameAgain.response.status !== 200
+    ) {
       window.location.reload();
     }
+    window.location.reload();
   }
   inputMessage.value = "";
 }
