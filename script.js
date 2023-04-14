@@ -1,3 +1,5 @@
+axios.defaults.headers.common["Authorization"] = "nFHynGaV0aEvGo6vS1iNTaJa";
+
 // Função que pega as mensagens
 function getMessage() {
   const promise = axios.get(
@@ -42,12 +44,19 @@ function promptUsername() {
     username
   );
   promise.then(processAnswer);
+  promise.catch(showError);
 }
 
 function processAnswer(answer) {
-  console.log(answer.data);
+  if (answer.status === 200) {
+    getMessage();
+  }
 }
-getMessage();
+function showError(error) {
+  if (error.response.status === 400) {
+    promptUsername();
+  }
+}
 //-----------------------------
 
 promptUsername();
