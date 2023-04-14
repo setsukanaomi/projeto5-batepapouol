@@ -7,12 +7,47 @@
     <title>Bate-papo Uol</title>
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="header">
       <div><img src="/assets/logo.png" alt="Logo do Bate-papo Uol" /></div>
-      <div></div>
+      <div><ion-icon class="header-ionicon" name="people"></ion-icon></div>
     </div>
+    <div class="container">
+      <div class="content">
+        <div class="chat">
+          <div class="time">(09:21:45)</div>
+          <div class="name">João</div>
+          <div class="message">entra na sala...</div>
+        </div>
+        <div class="chat">
+          <div class="time">(09:21:45)</div>
+          <div class="name">João</div>
+          <div class="message">entra na sala...</div>
+        </div>
+        <div class="chat">
+          <div class="time">(09:21:45)</div>
+          <div class="name">João</div>
+          <div class="message">entra na sala...</div>
+        </div>
+      </div>
+      <div class="send">
+        <div class="send-box">
+          <input type="text" placeholder="Escreva aqui..." />
+        </div>
+        <div class="send-buttom">
+          <ion-icon name="paper-plane-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="script.js"></script>
   </body>

@@ -1,0 +1,58 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.header {
+  display: flex;
+  margin: 16px 22px 60px 22px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-ionicon {
+  font-size: 40px;
+}
+
+.chat {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  background-color: #dcdcdc;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.time {
+  margin-left: 10px;
+  color: #aaaaaa;
+}
+
+.send {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.send-box input {
+  margin-left: 18px;
+  font-size: 18px;
+  font-style: italic;
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+.send-buttom {
+  margin-right: 27px;
+  font-size: 26px;
+}
