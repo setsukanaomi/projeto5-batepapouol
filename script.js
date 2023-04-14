@@ -99,6 +99,7 @@ function setupInput() {
     }
   });
 }
+//----------------------------
 
 // Função que envia o username
 function sendUsername(participants) {
@@ -113,6 +114,7 @@ function sendUsername(participants) {
 
   promiseGetParticipants.then(function (response) {
     const participants = response.data;
+
     // Verifica se o nome de usuário já está em uso
     if (participants.find((p) => p.name === window.username.name)) {
       alert(
@@ -120,8 +122,9 @@ function sendUsername(participants) {
       );
       return;
     }
+    //------------------------------
 
-    // Envie a solicitação POST para adicionar o usuário
+    // Envia usuário caso não esteja em uso
     const promise = axios.post(
       "https://mock-api.driven.com.br/api/vm/uol/participants",
       window.username
