@@ -19,7 +19,7 @@ function showMessages(message) {
   chat.innerHTML += `<div data-test="message" class="chat">
     <div class="time">(${message.time})</div>
     <div class="name"><strong>${message.from}</strong></div>
-    <div class="${toClasses}">para <strong${message.to}:</strong></div>
+    <div class="${toClasses}">para <strong>${message.to}:</strong></div>
     <div class="message">${message.text}</div>
   </div>`;
   stayConnected();
@@ -34,8 +34,25 @@ function stayConnected() {
     "https://mock-api.driven.com.br/api/vm/uol/status",
     window.username
   );
-  promiseConnected.then(updateMessages);
-  promiseConnected.catch(updateUsername);
+}
+//----------------------------
+
+// Função para enviar mensagem
+function sendMessage() {
+  const input = document.querySelector(".send-box input");
+  const message = input.value;
+  const fullMessage = {
+    from: window.username.name,
+    to: "Todos",
+    text: message,
+    type: "message",
+  };
+  const promiseSend = axios.post(
+    "https://mock-api.driven.com.br/api/vm/uol/messages",
+    fullMessage
+  );
+  promiseSend.then(updateMessages);
+  promiseSend.catch(updateUsername);
 
   function updateMessages(update) {
     if (update.status === 200) {
@@ -47,6 +64,7 @@ function stayConnected() {
       window.location.reload();
     }
   }
+  input.value = "";
 }
 //----------------------------
 
@@ -94,24 +112,5 @@ function promptUsername() {
   }
 }
 //-----------------------------
-
-// Função para enviar mensagem
-function sendMessage() {
-  const input = document.querySelector(".send-box input");
-  const message = input.value;
-  const fullMessage = {
-    from: window.username.name,
-    to: "Todos",
-    text: message,
-    type: "message",
-  };
-  const promiseSend = axios.post(
-    "https://mock-api.driven.com.br/api/vm/uol/messages",
-    fullMessage
-  );
-  console.log(promiseSend);
-  input.value = "";
-}
-//----------------------------
 
 promptUsername();
