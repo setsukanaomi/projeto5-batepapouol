@@ -28,6 +28,45 @@ function showMessages(message) {
 }
 //----------------------------
 
+// Função que mantém conexão
+function stayConnected() {
+  const promiseConnected = axios.post(
+    "https://mock-api.driven.com.br/api/vm/uol/status",
+    window.username
+  );
+  promiseConnected.then(updateMessages);
+  promiseConnected.catch(updateUsername);
+
+  function updateMessages(update) {
+    if (update.status === 200) {
+      getMessage();
+    }
+  }
+  function updateUsername(usernameAgain) {
+    if (usernameAgain.response.status === 400) {
+      window.location.reload();
+    }
+  }
+}
+//----------------------------
+
+// Função que pega as mensagens
+function getMessage() {
+  const chat = document.querySelector(".content");
+  const promiseGet = axios.get(
+    "https://mock-api.driven.com.br/api/vm/uol/messages"
+  );
+  promiseGet.then(succeedMessages);
+
+  function succeedMessages(promise) {
+    const messages = promise.data;
+    console.log(messages);
+    chat.innerHTML = ""; // Limpa as mensagens antigas
+    messages.forEach(showMessages);
+  }
+}
+//----------------------------
+
 // Função que solicita o nome, com const global username
 function promptUsername() {
   let user = prompt("Qual seu nome?");
@@ -56,23 +95,6 @@ function promptUsername() {
 }
 //-----------------------------
 
-// Função que pega as mensagens
-function getMessage() {
-  const chat = document.querySelector(".content");
-  const promiseGet = axios.get(
-    "https://mock-api.driven.com.br/api/vm/uol/messages"
-  );
-  promiseGet.then(succeedMessages);
-
-  function succeedMessages(promise) {
-    const messages = promise.data;
-    console.log(messages);
-    chat.innerHTML = ""; // Limpa as mensagens antigas
-    messages.forEach(showMessages);
-  }
-}
-//----------------------------
-
 // Função para enviar mensagem
 function sendMessage() {
   const input = document.querySelector(".send-box input");
@@ -89,15 +111,6 @@ function sendMessage() {
   );
   console.log(promiseSend);
   input.value = "";
-}
-//----------------------------
-
-// Função que mantém conexão
-function stayConnected() {
-  const promiseConnected = axios.post(
-    "https://mock-api.driven.com.br/api/vm/uol/status",
-    window.username
-  );
 }
 //----------------------------
 
