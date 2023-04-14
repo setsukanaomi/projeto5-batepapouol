@@ -12,10 +12,10 @@ function showMessages(message) {
 
 // Função que pega as mensagens
 function getMessage() {
-  const promise = axios.get(
+  const promiseGet = axios.get(
     "https://mock-api.driven.com.br/api/vm/uol/messages"
   );
-  promise.then(succeedMessages);
+  promiseGet.then(succeedMessages);
 
   function succeedMessages(promise) {
     const messages = promise.data;
@@ -40,7 +40,7 @@ function promptUsername() {
 
 function processAnswer(answer) {
   if (answer.status === 200) {
-    getMessage();
+    setInterval(getMessage, 3000);
   }
 }
 function showError(error) {
