@@ -13,10 +13,15 @@ function scrollToBottom(chat) {
 function showMessages(message) {
   const chat = document.querySelector(".content");
   let toClasses = "to";
+  let chatClasses = "chat";
   if (message.type === "status") {
     toClasses += " hidden";
+    chatClasses += " status";
+  } else if (message.type === "message") {
+    chatClasses += " message";
   }
-  chat.innerHTML += `<div data-test="message" class="chat">
+
+  chat.innerHTML += `<div data-test="message" class="${chatClasses}">
     <div class="time">(${message.time})</div>
     <div class="name"><strong>${message.from}</strong></div>
     <div class="${toClasses}">para <strong>${message.to}:</strong></div>
@@ -91,7 +96,6 @@ function promptUsername() {
     if (error.response.status === 400) {
       window.location.reload();
     }
-    window.location.reload();
   }
 }
 //-----------------------------

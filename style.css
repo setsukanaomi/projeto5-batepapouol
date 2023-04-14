@@ -72,3 +72,11 @@ input:focus {
 .hidden {
   display: none;
 }
+
+.status {
+  background-color: #dcdcdc;
+}
+
+.message {
+  background-color: #ffffff;
+}
