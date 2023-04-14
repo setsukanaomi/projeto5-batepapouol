@@ -13,13 +13,16 @@ body {
   font-size: 40px;
 }
 
+.content {
+  margin-bottom: 80px;
+}
+
 .chat {
   height: 40px;
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  background-color: #dcdcdc;
 }
 
 .name {
@@ -32,6 +35,8 @@ body {
 }
 
 .send {
+  z-index: 1;
+  background-color: white;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -48,11 +53,18 @@ body {
   border: none;
 }
 
-input:focus {
-  outline: none;
+button {
+  margin-right: 20px;
+  border: none;
 }
 
-.send-buttom {
-  margin-right: 27px;
+button:hover {
+  cursor: pointer;
+}
+button ion-icon {
   font-size: 26px;
+}
+
+input:focus {
+  outline: none;
 }
