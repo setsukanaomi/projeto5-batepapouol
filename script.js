@@ -22,8 +22,6 @@ function showMessages(message) {
     <div class="${toClasses}">para <strong>${message.to}:</strong></div>
     <div class="message">${message.text}</div>
   </div>`;
-  stayConnected();
-  setInterval(stayConnected, 5000);
   scrollToBottom(chat);
 }
 //----------------------------
@@ -85,7 +83,8 @@ function promptUsername() {
     if (answer.status === 200) {
       window.username = username;
       getMessage();
-      setInterval(getMessage, 3000);
+      setInterval(stayConnected, 5000); // Verifica a conexão a cada 5 segundos
+      setInterval(getMessage, 3000); // Atualiza as mensagens a cada 3 segundos
     }
   }
   function showError(error) {
