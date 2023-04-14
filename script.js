@@ -1,15 +1,60 @@
 axios.defaults.headers.common["Authorization"] = "nFHynGaV0aEvGo6vS1iNTaJa";
 
+window.username = null;
+
+// Função que scrolla para última mensagem
+function scrollToBottom(chat) {
+  const lastMessage = chat.lastChild;
+  lastMessage.scrollIntoView();
+}
+//----------------------------
+
 // Função que mostra as mensagens
 function showMessages(message) {
   const chat = document.querySelector(".content");
+  let toClasses = "to";
+  if (message.type === "status") {
+    toClasses += " hidden";
+  }
   chat.innerHTML += `<div data-test="message" class="chat">
-<div class="time">(${message.time})</div>
-<div class="name">${message.from}</div>
-<div class="message">${message.text}</div>
-</div>`;
+    <div class="time">(${message.time})</div>
+    <div class="name"><strong>${message.from}</strong></div>
+    <div class="${toClasses}">para <strong${message.to}:</strong></div>
+    <div class="message">${message.text}</div>
+  </div>`;
+  stayConnected();
+  setInterval(stayConnected, 5000);
+  scrollToBottom(chat);
 }
 //----------------------------
+
+// Função que solicita o nome, com const global username
+function promptUsername() {
+  let user = prompt("Qual seu nome?");
+  window.username = {
+    name: user,
+  };
+  const promise = axios.post(
+    "https://mock-api.driven.com.br/api/vm/uol/participants",
+    window.username
+  );
+  promise.then(processAnswer);
+  promise.catch(showError);
+
+  function processAnswer(answer) {
+    if (answer.status === 200) {
+      window.username = username;
+      getMessage();
+      setInterval(getMessage, 3000);
+    }
+  }
+  function showError(error) {
+    if (error.response.status === 400) {
+      promptUsername();
+    }
+  }
+}
+//-----------------------------
 
 // Função que pega as mensagens
 function getMessage() {
@@ -21,45 +66,38 @@ function getMessage() {
 
   function succeedMessages(promise) {
     const messages = promise.data;
+    console.log(messages);
     chat.innerHTML = ""; // Limpa as mensagens antigas
     messages.forEach(showMessages);
   }
 }
 //----------------------------
 
-// Função que solicita o nome
-function promptUsername() {
-  let user = prompt("Qual seu nome?");
-  const username = {
-    name: user,
-  };
-  const promise = axios.post(
-    "https://mock-api.driven.com.br/api/vm/uol/participants",
-    username
-  );
-  promise.then(processAnswer);
-  promise.catch(showError);
-}
-
-function processAnswer(answer) {
-  if (answer.status === 200) {
-    getMessage();
-    setInterval(getMessage, 3000);
-  }
-}
-function showError(error) {
-  if (error.response.status === 400) {
-    promptUsername();
-  }
-}
-//-----------------------------
-
 // Função para enviar mensagem
 function sendMessage() {
   const input = document.querySelector(".send-box input");
   const message = input.value;
-  console.log(message);
+  const fullMessage = {
+    from: window.username.name,
+    to: "Todos",
+    text: message,
+    type: "message",
+  };
+  const promiseSend = axios.post(
+    "https://mock-api.driven.com.br/api/vm/uol/messages",
+    fullMessage
+  );
+  console.log(promiseSend);
   input.value = "";
+}
+//----------------------------
+
+// Função que mantém conexão
+function stayConnected() {
+  const promiseConnected = axios.post(
+    "https://mock-api.driven.com.br/api/vm/uol/status",
+    window.username
+  );
 }
 //----------------------------
 
