@@ -57,14 +57,17 @@ function sendMessage() {
     fullMessage
   );
   promiseSend.then(updateMessages);
-  promiseSend.catch(updatePage);
+  promiseSend.catch(updateUsername);
 
   function updateMessages(update) {
     if (update.status === 200) {
       getMessage();
     }
   }
-  function updatePage() {
+  function updateUsername(usernameAgain) {
+    if (usernameAgain.response.status === 400) {
+      window.location.reload();
+    }
     window.location.reload();
   }
   inputMessage.value = "";
@@ -99,7 +102,7 @@ function setupInput() {
 }
 //----------------------------
 
-// Função que verifica se já tem o username
+// Função que envia o username
 function sendUsername(participants) {
   const inputLogin = document.querySelector(".login input");
   const user = inputLogin.value;
@@ -112,6 +115,8 @@ function sendUsername(participants) {
 
   promiseGetParticipants.then(function (response) {
     const participants = response.data;
+
+    // Verifica se o nome de usuário já está em uso
     if (participants.find((p) => p.name === window.username.name)) {
       alert(
         "Este nome de usuário já está em uso. Por favor, escolha outro nome."
@@ -120,7 +125,7 @@ function sendUsername(participants) {
     }
     //------------------------------
 
-    // Função que envia caso username esteja disponível
+    // Envia usuário caso não esteja em uso
     const promise = axios.post(
       "https://mock-api.driven.com.br/api/vm/uol/participants",
       window.username
@@ -141,7 +146,7 @@ function sendUsername(participants) {
     }
   }
   function showError(error) {
-    if (error.response.status !== 200) {
+    if (error.response.status === 400) {
       window.location.reload();
     }
   }
