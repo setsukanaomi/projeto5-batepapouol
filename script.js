@@ -1,5 +1,15 @@
 axios.defaults.headers.common["Authorization"] = "nFHynGaV0aEvGo6vS1iNTaJa";
 
+// Função que mostra as mensagens
+function showMessages(message) {
+  const chat = document.querySelector(".content");
+  chat.innerHTML += `<div class="chat">
+<div class="time">(${message.time})</div>
+<div class="name">${message.from}</div>
+<div class="message">${message.text}</div>`;
+}
+//----------------------------
+
 // Função que pega as mensagens
 function getMessage() {
   const promise = axios.get(
@@ -11,25 +21,6 @@ function getMessage() {
     const messages = promise.data;
     messages.forEach(showMessages);
   }
-}
-//----------------------------
-
-// Função que mostra as mensagens
-function showMessages(message) {
-  const chat = document.querySelector(".content");
-  chat.innerHTML += `<div class="chat">
-<div class="time">(${message.time})</div>
-<div class="name">${message.from}</div>
-<div class="message">${message.text}</div>`;
-}
-//----------------------------
-
-// Função para enviar mensagem
-function sendMessage() {
-  const input = document.querySelector(".send-box input");
-  const message = input.value;
-  console.log(message);
-  input.value = "";
 }
 //----------------------------
 
@@ -58,5 +49,14 @@ function showError(error) {
   }
 }
 //-----------------------------
+
+// Função para enviar mensagem
+function sendMessage() {
+  const input = document.querySelector(".send-box input");
+  const message = input.value;
+  console.log(message);
+  input.value = "";
+}
+//----------------------------
 
 promptUsername();
