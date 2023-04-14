@@ -44,8 +44,8 @@ function stayConnected() {
 
 // Função para enviar mensagem
 function sendMessage() {
-  const input = document.querySelector(".send-box input");
-  const message = input.value;
+  const inputMessage = document.querySelector(".send-box input");
+  const message = inputMessage.value;
   const fullMessage = {
     from: window.username.name,
     to: "Todos",
@@ -69,38 +69,9 @@ function sendMessage() {
       window.location.reload();
     }
   }
-  input.value = "";
+  inputMessage.value = "";
 }
 //----------------------------
-
-// Função que solicita o nome, com const global username
-function promptUsername() {
-  let user = prompt("Qual seu nome?");
-  window.username = {
-    name: user,
-  };
-  const promise = axios.post(
-    "https://mock-api.driven.com.br/api/vm/uol/participants",
-    window.username
-  );
-  promise.then(processAnswer);
-  promise.catch(showError);
-
-  function processAnswer(answer) {
-    if (answer.status === 200) {
-      window.username = username;
-      getMessage();
-      setInterval(stayConnected, 5000); // Verifica a conexão a cada 5 segundos
-      setInterval(getMessage, 3000); // Atualiza as mensagens a cada 3 segundos
-    }
-  }
-  function showError(error) {
-    if (error.response.status === 400) {
-      window.location.reload();
-    }
-  }
-}
-//-----------------------------
 
 // Função que pega as mensagens
 function getMessage() {
@@ -121,13 +92,46 @@ function getMessage() {
 
 // Função que envia com enter
 function setupInput() {
-  const input = document.querySelector(".send-box input");
-  input.addEventListener("keydown", (event) => {
+  const inputSend = document.querySelector(".send-box input");
+  inputSend.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       sendMessage();
     }
   });
 }
 
-promptUsername();
+// Função que envia o username
+function sendUsername() {
+  const inputLogin = document.querySelector(".login input");
+  const user = inputLogin.value;
+  window.username = {
+    name: user,
+  };
+  console.log(window.username);
+  const promise = axios.post(
+    "https://mock-api.driven.com.br/api/vm/uol/participants",
+    window.username
+  );
+  promise.then(processAnswer);
+  promise.catch(showError);
+
+  function processAnswer(answer) {
+    if (answer.status === 200) {
+      window.username = username;
+      const loginDiv = document.querySelector(".login");
+      loginDiv.classList.remove("login");
+      loginDiv.classList.add("hidden");
+      getMessage();
+      setInterval(stayConnected, 5000); // Verifica a conexão a cada 5 segundos
+      setInterval(getMessage, 3000); // Atualiza as mensagens a cada 3 segundos
+    }
+  }
+  function showError(error) {
+    if (error.response.status === 400) {
+      window.location.reload();
+    }
+  }
+}
+//----------------------------
+
 setupInput();

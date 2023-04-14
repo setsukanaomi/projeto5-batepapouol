@@ -17,11 +17,24 @@
   <body>
     <div class="header">
       <div>
-        <img class="logo" src="./assets/logo.png" alt="Logo do Bate-papo Uol" />
+        <img class="logo" src="./assets/logo.png" />
       </div>
       <div><ion-icon class="header-ionicon" name="people"></ion-icon></div>
     </div>
     <div class="container">
+      <div class="login">
+        <div><img class="logo-login" src="./assets/logologin.png" /></div>
+        <div><input type="text" placeholder="Digite seu nome" /></div>
+        <div>
+          <button
+            class="submit-username"
+            onclick="sendUsername()"
+            type="submit"
+          >
+            Entrar
+          </button>
+        </div>
+      </div>
       <div class="content"></div>
       <div class="send">
         <div class="send-box">

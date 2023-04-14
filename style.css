@@ -2,6 +2,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .header {
   z-index: 1;
   background-color: white;
@@ -63,10 +67,14 @@ strong {
 }
 
 .send-box input {
-  margin-left: 18px;
+  padding-left: 18px;
   font-size: 18px;
   font-style: italic;
   border: none;
+}
+
+.send-box ::placeholder {
+  color: black;
 }
 
 button {
@@ -103,4 +111,47 @@ p {
 
 span {
   width: 100%;
+}
+
+.login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  gap: 20px;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.login input {
+  text-align: center;
+  font-size: 18px;
+  border: none;
+  width: 260px;
+  height: 55px;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+}
+
+.login ::placeholder {
+  color: #aeaeae;
+}
+
+.logo-login {
+  width: 130px;
+  height: 92px;
+  margin-top: 72px;
+  margin-bottom: 92px;
+}
+
+.submit-username {
+  font-size: 18px;
+  color: #696969;
+  width: 110px;
+  height: 45px;
 }
