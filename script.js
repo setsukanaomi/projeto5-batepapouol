@@ -65,7 +65,7 @@ function sendMessage() {
     }
   }
   function updateUsername(usernameAgain) {
-    if (usernameAgain.response.status === 400) {
+    if (usernameAgain.response.status !== 200) {
       window.location.reload();
     }
     window.location.reload();
@@ -146,7 +146,7 @@ function sendUsername(participants) {
     }
   }
   function showError(error) {
-    if (error.response.status === 400) {
+    if (error.response.status !== 200) {
       window.location.reload();
     }
   }
